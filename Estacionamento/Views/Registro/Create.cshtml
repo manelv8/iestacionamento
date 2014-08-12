@@ -48,6 +48,14 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Placa, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Placa)
+                @Html.ValidationMessageFor(model => model.Placa)
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.VeiculoId, "VeiculoId", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("VeiculoId", String.Empty)

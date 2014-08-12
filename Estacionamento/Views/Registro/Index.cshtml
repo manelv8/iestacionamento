@@ -26,6 +26,9 @@
         <th>
             @Html.DisplayNameFor(model => model.ValorPago)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Placa)
+        </th>
         <th></th>
     </tr>
 
@@ -45,6 +48,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ValorPago)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Placa)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

@@ -37,11 +37,6 @@ namespace Estacionamento.Controllers
         }
 
         // GET: /Registro/Create
-
-        public ActionResult RegistraEntrada(string placa)
-        {
-            return View();
-        }
         public ActionResult Create()
         {
             ViewBag.VeiculoId = new SelectList(db.Veiculos, "Id", "Placa");
@@ -53,7 +48,7 @@ namespace Estacionamento.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Entrada,Saida,ValorDevido,ValorPago,VeiculoId")] Registro registro)
+        public ActionResult Create([Bind(Include="Id,Entrada,Saida,ValorDevido,ValorPago,Placa,VeiculoId")] Registro registro)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +82,7 @@ namespace Estacionamento.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Entrada,Saida,ValorDevido,ValorPago,VeiculoId")] Registro registro)
+        public ActionResult Edit([Bind(Include="Id,Entrada,Saida,ValorDevido,ValorPago,Placa,VeiculoId")] Registro registro)
         {
             if (ModelState.IsValid)
             {
