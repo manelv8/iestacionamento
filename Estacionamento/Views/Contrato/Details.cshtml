@@ -1,0 +1,58 @@
+﻿@model Estacionamento.Models.Contrato
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Contrato</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.Telefone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.Telefone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Turno.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Turno.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Datafim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Datafim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valor)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
