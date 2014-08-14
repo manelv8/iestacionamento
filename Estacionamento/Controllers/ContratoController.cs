@@ -17,7 +17,9 @@ namespace Estacionamento.Controllers
         // GET: /Contrato/
         public ActionResult Index()
         {
-            var contratos = db.Contratos.Include(c => c.Cliente).Include(c => c.Turno);
+         //   var contratos = db.Contratos.Include(c => c.Cliente).Include(c => c.Turno);
+            var contratos = db.Contratos.Include(c => c.Cliente);
+
             return View(contratos.ToList());
         }
 
@@ -59,7 +61,7 @@ namespace Estacionamento.Controllers
             }
 
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Telefone", contrato.ClienteId);
-            ViewBag.TurnoId = new SelectList(db.Turnos, "Id", "Nome", contrato.TurnoId);
+           // ViewBag.TurnoId = new SelectList(db.Turnos, "Id", "Nome", contrato.TurnoId);
             return View(contrato);
         }
 
@@ -76,7 +78,7 @@ namespace Estacionamento.Controllers
                 return HttpNotFound();
             }
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Telefone", contrato.ClienteId);
-            ViewBag.TurnoId = new SelectList(db.Turnos, "Id", "Nome", contrato.TurnoId);
+          //  ViewBag.TurnoId = new SelectList(db.Turnos, "Id", "Nome", contrato.TurnoId);
             return View(contrato);
         }
 
@@ -94,7 +96,7 @@ namespace Estacionamento.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Telefone", contrato.ClienteId);
-            ViewBag.TurnoId = new SelectList(db.Turnos, "Id", "Nome", contrato.TurnoId);
+          //  ViewBag.TurnoId = new SelectList(db.Turnos, "Id", "Nome", contrato.TurnoId);
             return View(contrato);
         }
 

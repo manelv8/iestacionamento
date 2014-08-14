@@ -48,7 +48,7 @@ namespace Estacionamento.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Entrada,Saida,ValorDevido,ValorPago,Placa,VeiculoId")] Registro registro)
+        public ActionResult Create([Bind(Include = "Id,Entrada,Saida,ValorDevido,ValorPago,Placa,VeiculoId")] Registro registro)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Estacionamento.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Entrada,Saida,ValorDevido,ValorPago,Placa,VeiculoId")] Registro registro)
+        public ActionResult Edit([Bind(Include = "Id,Entrada,Saida,ValorDevido,ValorPago,Placa,VeiculoId")] Registro registro)
         {
             if (ModelState.IsValid)
             {
@@ -117,6 +117,35 @@ namespace Estacionamento.Controllers
             Registro registro = db.Registros.Find(id);
             db.Registros.Remove(registro);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+
+        public ActionResult RegistraEntrada(string placa)
+        {
+            placa = placa.ToUpper();
+            Veiculo v = db.Veiculos.Where(x => x.Placa.Equals(placa)).FirstOrDefault();
+
+
+            using (db)
+            {
+                if (v == null)
+                {
+                    v = new Veiculo();
+                    v.Placa = placa;
+                    db.Veiculos.Add(v);
+                   
+                }
+
+                Registro reg = new Registro();
+                reg.Entrada = DateTime.Now;
+                reg.Placa = v.Placa;
+                reg.Veiculo = v;
+                db.Registros.Add(reg);
+                db.SaveChanges();
+
+            }
             return RedirectToAction("Index");
         }
 

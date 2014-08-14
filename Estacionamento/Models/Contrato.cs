@@ -15,11 +15,11 @@ namespace Estacionamento.Models
 
         public float Valor { get; set; }
 
-        public int TurnoId { set; get; }
+//public int TurnoId { set; get; }
 
         public int ClienteId { set; get; }
 
-        public virtual Turno Turno { set; get; }
+//public virtual Turno Turno { set; get; }
         public virtual Cliente Cliente { set; get; }
     }
 }

@@ -10,11 +10,11 @@ namespace Estacionamento.Models
         public int Id { get; set; }
         public DateTime Entrada { get; set; }
         public DateTime? Saida { get; set; }
-        public float ValorDevido { get; set; }
-        public float ValorPago { get; set; }
+        public float? ValorDevido { get; set; }
+        public float? ValorPago { get; set; }
         public string Placa { get; set; }
 
-        public int? VeiculoId { get; set; }
+        public int VeiculoId { get; set; }
         public virtual Veiculo Veiculo { get; set; }
 
     }

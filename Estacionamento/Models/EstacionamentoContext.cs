@@ -26,11 +26,11 @@ namespace Estacionamento.Models
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             
-            modelBuilder.Entity<Contrato>().HasRequired(t => t.Turno).WithMany(c => c.Contratos).HasForeignKey(t => t.TurnoId);
+          //  modelBuilder.Entity<Contrato>().HasRequired(t => t.Turno).WithMany(c => c.Contratos).HasForeignKey(t => t.TurnoId);
             modelBuilder.Entity<Contrato>().HasRequired(c => c.Cliente).WithMany(c => c.ContratosClientes).HasForeignKey(c => c.ClienteId);
             
-            modelBuilder.Entity<Veiculo>().HasRequired(c => c.Cliente).WithMany(v => v.Veiculos).HasForeignKey(c => c.ClienteId);
-            modelBuilder.Entity<Registro>().HasOptional(v => v.Veiculo).WithMany(r => r.Registros).HasForeignKey(v => v.VeiculoId);
+            modelBuilder.Entity<Veiculo>().HasOptional(c => c.Cliente).WithMany(v => v.Veiculos).HasForeignKey(c => c.ClienteId);
+            modelBuilder.Entity<Registro>().HasRequired(v => v.Veiculo).WithMany(r => r.Registros).HasForeignKey(v => v.VeiculoId);
 
             
             

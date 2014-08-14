@@ -30,27 +30,6 @@ namespace Estacionamento.Controllers
             return View();
         }
 
-        public ActionResult Entrada()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Entrada(string placa)
-        {
-
-         //   if (db.Veiculo.Where(v => v.Placa == placa).Any())
-         //   {
-        //        return RedirectToAction("RegistraEntrada", "Registro", new { placa = placa });
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("RegistraEntrada", "Registro", new { placa = placa });
-
-            //}
-           
-
-            return RedirectToAction("RegistraEntrada", "Registro", new {placa = placa });
-        }
+ 
     }
 }

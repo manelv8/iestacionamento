@@ -11,7 +11,7 @@ namespace Estacionamento.Models
         public string Placa { get; set; }
         public string  cor { get; set; }
 
-       public int ClienteId { get; set; }
+       public int? ClienteId { get; set; }
 
        public virtual Cliente Cliente { get; set; }
 
