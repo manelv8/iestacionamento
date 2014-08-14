@@ -15,6 +15,7 @@ namespace Estacionamento.Controllers
         private EstacionamentoContext db = new EstacionamentoContext();
 
         // GET: /Veiculo/
+        [Authorize]
         public ActionResult Index()
         {
             var veiculos = db.Veiculos.Include(v => v.Cliente);
