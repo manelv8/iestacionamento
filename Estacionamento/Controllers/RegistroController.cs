@@ -124,6 +124,7 @@ namespace Estacionamento.Controllers
 
         public ActionResult RegistraEntrada(string placa)
         {
+            bool rotativo = true;
             placa = placa.ToUpper();
             Veiculo v = db.Veiculos.Where(x => x.Placa.Equals(placa)).FirstOrDefault();
 
@@ -131,17 +132,49 @@ namespace Estacionamento.Controllers
             using (db)
             {
                 if (v == null)
-                {
+                {   //cria um novo veiculo sem cliente
                     v = new Veiculo();
                     v.Placa = placa;
                     db.Veiculos.Add(v);
-                   
+
                 }
+                else
+                {   //verifica se o veiculo já está no pátio
+                    Registro registro = db.Registros
+                        .Where(x => x.VeiculoId == v.Id)
+                        .Where(d => d.Saida == null).FirstOrDefault();
+
+                    if (registro != null)
+                    {
+                        TempData["erro"] = "veiculo ja no patio";
+                        return RedirectToAction("Entrada", "Movimentacao");
+                    }
+
+                    else if (v.ClienteId != null)
+                    {
+                        //verificar se o veiculo possui um cliente cadastrado
+                        Cliente cliente = db.Clientes.Find(v.Cliente);
+
+                        //verificar se o ciente cadastrado possui um contrato ativo
+                        Contrato contrato = db.Contratos
+                            .Where(c => c.ClienteId == cliente.Id)
+                            .Where(d => d.Datafim <= DateTime.Now).FirstOrDefault();
+
+                        if (contrato != null)
+                        {
+                            rotativo = false;
+                        }
+                    }
+
+
+                }
+
 
                 Registro reg = new Registro();
                 reg.Entrada = DateTime.Now;
                 reg.Placa = v.Placa;
                 reg.Veiculo = v;
+                reg.Rotativo = rotativo;
                 db.Registros.Add(reg);
                 db.SaveChanges();
 

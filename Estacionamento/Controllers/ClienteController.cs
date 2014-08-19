@@ -46,7 +46,7 @@ namespace Estacionamento.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Telefone")] Cliente cliente)
+        public ActionResult Create([Bind(Include="Id,Nome,Telefone")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace Estacionamento.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Telefone")] Cliente cliente)
+        public ActionResult Edit([Bind(Include="Id,Nome,Telefone")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {

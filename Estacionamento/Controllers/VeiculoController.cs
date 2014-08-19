@@ -15,7 +15,7 @@ namespace Estacionamento.Controllers
         private EstacionamentoContext db = new EstacionamentoContext();
 
         // GET: /Veiculo/
-        [Authorize]
+      
         public ActionResult Index()
         {
             var veiculos = db.Veiculos.Include(v => v.Cliente);
@@ -40,7 +40,7 @@ namespace Estacionamento.Controllers
         // GET: /Veiculo/Create
         public ActionResult Create()
         {
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Telefone");
+            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace Estacionamento.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Telefone", veiculo.ClienteId);
+            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", veiculo.ClienteId);
             return View(veiculo);
         }
 
@@ -74,7 +74,7 @@ namespace Estacionamento.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Telefone", veiculo.ClienteId);
+            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", veiculo.ClienteId);
             return View(veiculo);
         }
 
@@ -91,7 +91,7 @@ namespace Estacionamento.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Telefone", veiculo.ClienteId);
+            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", veiculo.ClienteId);
             return View(veiculo);
         }
 

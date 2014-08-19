@@ -21,6 +21,10 @@ namespace Estacionamento.Models
         public DbSet<Veiculo> Veiculos { get; set; }
         public DbSet<Registro> Registros { get; set; }
 
+        public DbSet<ValorRotativo> ValoresRotativo { get; set; }
+
+
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

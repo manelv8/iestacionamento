@@ -26,8 +26,9 @@
         <th>
             @Html.DisplayNameFor(model => model.ValorPago)
         </th>
+      
         <th>
-            @Html.DisplayNameFor(model => model.Placa)
+            @Html.DisplayNameFor(model => model.Rotativo)
         </th>
         <th></th>
     </tr>
@@ -49,8 +50,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.ValorPago)
         </td>
+     
+
         <td>
-            @Html.DisplayFor(modelItem => item.Placa)
+            @Html.DisplayFor(modelItem => item.Rotativo)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
