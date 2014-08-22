@@ -32,5 +32,21 @@ namespace Estacionamento.Controllers
 
             return RedirectToAction("RegistraEntrada", "Registro", new { placa = placa });
         }
-	}
+
+
+        public ActionResult Saida()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Saida(string placa)
+        {
+
+            return RedirectToAction("RegistraSaida", "Registro", new { placa = placa });
+        }
+
+
+    }
 }

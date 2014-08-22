@@ -263,6 +263,8 @@
     <Content Include="Views\ValoresRotativo\Edit.cshtml" />
     <Content Include="Views\ValoresRotativo\Index.cshtml" />
     <Content Include="Views\Registro\Patio.cshtml" />
+    <Content Include="Views\Movimentacao\Saida.cshtml" />
+    <Content Include="Views\Movimentacao\_formPlaca.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

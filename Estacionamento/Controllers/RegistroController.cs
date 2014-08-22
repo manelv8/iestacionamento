@@ -24,10 +24,10 @@ namespace Estacionamento.Controllers
         [HttpPost]
         public ActionResult Patio(string data = null)
         {
-            
+
             DateTime dataBusca;
 
-            if (data ==null)
+            if (data == null)
             {
                 dataBusca = DateTime.Today;
             }
@@ -40,7 +40,7 @@ namespace Estacionamento.Controllers
             var registros = db.Registros.Include(r => r.Veiculo)
                 .Where(r => r.Entrada.Day == dataBusca.Day)
                 .Where(r => r.Entrada.Month == dataBusca.Month)
-                .Where(r => r.Entrada.Year == dataBusca.Year);  
+                .Where(r => r.Entrada.Year == dataBusca.Year);
 
             return View(registros.ToList());
         }
@@ -176,7 +176,7 @@ namespace Estacionamento.Controllers
 
                     else if (v.ClienteId != null)
                     {
-                        
+
                         //verificar se o ciente cadastrado possui um contrato ativo
                         Contrato contrato = db.Contratos
                             .Where(c => c.ClienteId == v.ClienteId)
@@ -202,6 +202,23 @@ namespace Estacionamento.Controllers
 
             }
             return RedirectToAction("Index");
+        }
+
+        public ActionResult RegistraSaida(string placa)
+        {
+           Registro reg =  db.Registros.Where(p => p.Veiculo.Placa.Equals(placa)).Where(x => x.Saida == null).FirstOrDefault();
+
+           if (reg == null)
+           {
+               TempData["erro"] = "veiculo NAO está no patio";
+               return RedirectToAction("Saida", "Movimentacao");
+           }
+           else
+           {
+
+           }
+
+            return View();
         }
 
         protected override void Dispose(bool disposing)

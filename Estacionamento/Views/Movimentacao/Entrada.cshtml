@@ -17,23 +17,15 @@
 {
     @Html.AntiForgeryToken()
     
-   
+   <div class="form-horizontal">
+    <h4>Veiculo</h4>
+    <hr />
+    @Html.Partial("~/Views/Movimentacao/_formPlaca.cshtml")
     
-    <div class="form-horizontal">
-        <h4>Veiculo</h4>
-        <hr />
-        @Html.ValidationSummary(true)
-
-        <div class="form-group">
-            @Html.Label("Placa", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.Editor("placa")
-            </div>
-        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Registrar Entrada" class="btn btn-default" />
             </div>
         </div>
     </div>

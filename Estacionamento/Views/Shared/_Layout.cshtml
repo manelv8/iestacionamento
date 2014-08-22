@@ -41,10 +41,13 @@
                 <li>
                 @using (Html.BeginForm("Patio","Registro"))
                 {
-                    @Html.ActionLink("Pátio", "Patio", "Registro")    
+                   // @Html.Hidden("data", null)
+                   // @Html.ActionLink("Pátio", "Patio", "Registro")    
+                   <input type="submit" value="ver patio"/>
                 }
                 </li>
                 <li>@Html.ActionLink("Entrada de Veiculos", "Entrada", "Movimentacao")</li>
+                <li>@Html.ActionLink("Saida de Veiculos", "Saida", "Movimentacao")</li>
             </ul>
         </div>
     </div>
