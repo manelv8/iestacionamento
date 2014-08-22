@@ -21,6 +21,15 @@ namespace Estacionamento.Controllers
             return View(registros.ToList());
         }
 
+        public ActionResult Patio()
+        {
+
+
+            //testear passando uma DATA COMO PARAMETRO
+            var registros = db.Registros.Include(r => r.Veiculo).Where(r => r.Entrada. == DateTime.Today);
+            return View(registros.ToList());
+        }
+
         // GET: /Registro/Details/5
         public ActionResult Details(int? id)
         {
@@ -152,12 +161,10 @@ namespace Estacionamento.Controllers
 
                     else if (v.ClienteId != null)
                     {
-                        //verificar se o veiculo possui um cliente cadastrado
-                        Cliente cliente = db.Clientes.Find(v.Cliente);
-
+                        
                         //verificar se o ciente cadastrado possui um contrato ativo
                         Contrato contrato = db.Contratos
-                            .Where(c => c.ClienteId == cliente.Id)
+                            .Where(c => c.ClienteId == v.ClienteId)
                             .Where(d => d.Datafim <= DateTime.Now).FirstOrDefault();
 
                         if (contrato != null)
