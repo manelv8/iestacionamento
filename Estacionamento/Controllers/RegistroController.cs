@@ -21,12 +21,27 @@ namespace Estacionamento.Controllers
             return View(registros.ToList());
         }
 
-        public ActionResult Patio()
+        [HttpPost]
+        public ActionResult Patio(string data = null)
         {
+            
+            DateTime dataBusca;
 
+            if (data ==null)
+            {
+                dataBusca = DateTime.Today;
+            }
+            else
+            {
+                dataBusca = Convert.ToDateTime(data);
+            }
 
             //testear passando uma DATA COMO PARAMETRO
-            var registros = db.Registros.Include(r => r.Veiculo).Where(r => r.Entrada. == DateTime.Today);
+            var registros = db.Registros.Include(r => r.Veiculo)
+                .Where(r => r.Entrada.Day == dataBusca.Day)
+                .Where(r => r.Entrada.Month == dataBusca.Month)
+                .Where(r => r.Entrada.Year == dataBusca.Year);  
+
             return View(registros.ToList());
         }
 

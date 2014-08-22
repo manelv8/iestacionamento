@@ -38,7 +38,12 @@
             <ul class="nav nav-justified " >
                 <li>@Html.ActionLink("Cadastrar Cliente", "Create", "Cliente", null, new { @class = "active" })</li>
                 <li>@Html.ActionLink("Cadastrar Veiculo", "Create", "Veiculo")</li>
-                <li>@Html.ActionLink("Pátio", "Patio", "Registro")</li>
+                <li>
+                @using (Html.BeginForm("Patio","Registro"))
+                {
+                    @Html.ActionLink("Pátio", "Patio", "Registro")    
+                }
+                </li>
                 <li>@Html.ActionLink("Entrada de Veiculos", "Entrada", "Movimentacao")</li>
             </ul>
         </div>

@@ -5,6 +5,18 @@
 }
 
 <h2>Veiculos no Patio</h2>
+<div>
+    @using (Html.BeginForm())
+    {
+        
+        @Html.Label("data")
+        @Html.Editor("data");
+
+        <input type="submit" value="Filtrar" />
+
+    }
+
+</div>
 
 
 <table class="table">
@@ -36,7 +48,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Saida)
             </td>
-          
+
             <td>
                 @Html.DisplayFor(modelItem => item.Rotativo)
             </td>
