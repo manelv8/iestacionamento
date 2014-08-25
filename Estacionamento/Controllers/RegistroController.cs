@@ -206,20 +206,93 @@ namespace Estacionamento.Controllers
 
         public ActionResult RegistraSaida(string placa)
         {
-           Registro reg =  db.Registros.Where(p => p.Veiculo.Placa.Equals(placa)).Where(x => x.Saida == null).FirstOrDefault();
+            Registro reg;
+            using (db)
+            {
+                reg = db.Registros.Where(p => p.Veiculo.Placa.Equals(placa)).Where(x => x.Saida == null).FirstOrDefault();
 
-           if (reg == null)
-           {
-               TempData["erro"] = "veiculo NAO está no patio";
-               return RedirectToAction("Saida", "Movimentacao");
-           }
-           else
-           {
+                if (reg == null)
+                {
+                    TempData["erro"] = "veiculo NAO está no patio";
+                    return RedirectToAction("Saida", "Movimentacao");
+                }
+                else
+                {
+                    int turnos = 0;
+                    float preco = 3;
+                    DateTime meioDia = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 00, 00);
+                    DateTime fimTarde = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 18, 00, 00);
 
-           }
+                    reg.Saida = DateTime.Now;
+                    int turnoEntrada1 = DateTime.Compare((DateTime)reg.Entrada, meioDia);
+                    int turnoEntrada2 = DateTime.Compare((DateTime)reg.Entrada, fimTarde);
+                    int turnoSaida1 = DateTime.Compare((DateTime)reg.Saida, meioDia);
+                    int turnoSaida2 = DateTime.Compare((DateTime)reg.Saida, fimTarde);
 
-            return View();
+                    if (turnoEntrada1 < 0 && turnoSaida1 <= 0) // entrou pela manha e saiu antes do meio dia
+                    {
+                        turnos = 1;
+                    }
+                    else if (turnoEntrada1 < 0 && turnoSaida2 <= 0)// entrou pela manha e saiu a tarde
+                    {
+                        turnos = 2;
+                    }
+                    else if (turnoEntrada1 < 0 && turnoSaida2 > 0) // entrou pela manha e saiu a noite
+                    {
+                        turnos = 3;
+                    }
+                    else if (turnoEntrada1 >= 0 && turnoEntrada2 < 0 && turnoSaida2 <= 0) //entrou a tarde e saiu a tarde
+                    {
+                        turnos = 1;
+                    }
+                    else if (turnoEntrada1 >= 0 && turnoEntrada2 < 0 && turnoSaida2 > 0) //entrou a tarde e saiu a NOITE
+                    {
+                        turnos = 2;
+                    }
+                    else
+                    {
+                        turnos = 1;
+                    }
+
+
+                    reg.ValorDevido = turnos * preco;
+                    db.Entry(reg).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+                // TimeSpan ts = (TimeSpan) (reg.Saida - reg.Entrada);
+
+                //  var dayTs = ts.Days;
+                //  var horasTs = ts.Hours;
+                //  var minTs = ts.Minutes;
+                //  var segTs = ts.Seconds;
+
+            }
+            parei as modificações aqui
+            return rediRedirectToAction("ConfirmaPagamento", reg.Id);
         }
+
+        public ActionResult ConfirmaPagamento(Registro reg)
+        {
+
+            return View(reg);
+        }
+        [HttpPost]
+        public ActionResult ConfirmaPagamento([Bind(Include = "Id,Saida,ValorDevido,ValorPago")]Registro reg)
+        {
+            using (db)
+            {
+                Registro registro = db.Registros.Find(reg.Id);
+                registro.Saida = reg.Saida;
+                registro.ValorDevido = reg.ValorDevido;
+                registro.ValorPago = reg.ValorPago;
+                db.Entry(registro).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("index");
+        }
+
 
         protected override void Dispose(bool disposing)
         {
