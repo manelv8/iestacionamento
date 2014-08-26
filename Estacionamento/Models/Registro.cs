@@ -12,8 +12,7 @@ namespace Estacionamento.Models
         public DateTime? Saida { get; set; }
         public float? ValorDevido { get; set; }
         public float? ValorPago { get; set; }
-        public string Placa { get; set; }
-
+       
         public bool Rotativo { get; set; }
 
         public int VeiculoId { get; set; }

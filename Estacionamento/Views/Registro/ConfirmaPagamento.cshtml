@@ -9,34 +9,53 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Registro</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.Rotativo)
+       
+       
+       
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Veiculo.Placa, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Veiculo.Placa)
+                @Html.HiddenFor(model => model.VeiculoId)
+                @Html.HiddenFor(model => model.Veiculo)
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Entrada, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Entrada)
-                @Html.ValidationMessageFor(model => model.Entrada)
+                @Html.DisplayFor(model => model.Entrada)
+                @Html.HiddenFor(model => model.Entrada)
+
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Saida, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Saida)
-                @Html.ValidationMessageFor(model => model.Saida)
+                @Html.DisplayFor(model => model.Saida)
+                @Html.HiddenFor(model => model.Saida)
+
+
+
+
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ValorDevido, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ValorDevido)
-                @Html.ValidationMessageFor(model => model.ValorDevido)
+                @Html.DisplayFor(model => model.ValorDevido)
+                @Html.HiddenFor(model => model.ValorDevido)
+
             </div>
         </div>
 
@@ -48,7 +67,7 @@
             </div>
         </div>
 
-       
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

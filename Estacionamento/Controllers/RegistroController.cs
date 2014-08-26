@@ -40,7 +40,8 @@ namespace Estacionamento.Controllers
             var registros = db.Registros.Include(r => r.Veiculo)
                 .Where(r => r.Entrada.Day == dataBusca.Day)
                 .Where(r => r.Entrada.Month == dataBusca.Month)
-                .Where(r => r.Entrada.Year == dataBusca.Year);
+                .Where(r => r.Entrada.Year == dataBusca.Year)
+                .Where(r => r.Saida == null);
 
             return View(registros.ToList());
         }
@@ -106,7 +107,7 @@ namespace Estacionamento.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Entrada,Saida,ValorDevido,ValorPago,Placa,VeiculoId")] Registro registro)
+        public ActionResult Edit(Registro registro)
         {
             if (ModelState.IsValid)
             {
@@ -194,7 +195,6 @@ namespace Estacionamento.Controllers
 
                 Registro reg = new Registro();
                 reg.Entrada = DateTime.Now;
-                reg.Placa = v.Placa;
                 reg.Veiculo = v;
                 reg.Rotativo = rotativo;
                 db.Registros.Add(reg);
@@ -207,6 +207,10 @@ namespace Estacionamento.Controllers
         public ActionResult RegistraSaida(string placa)
         {
             Registro reg;
+            float ValorDevido;
+            int Id;
+            DateTime Saida;
+
             using (db)
             {
                 reg = db.Registros.Where(p => p.Veiculo.Placa.Equals(placa)).Where(x => x.Saida == null).FirstOrDefault();
@@ -220,14 +224,17 @@ namespace Estacionamento.Controllers
                 {
                     int turnos = 0;
                     float preco = 3;
+                    Id = reg.Id;
+                    Saida = DateTime.Now; //hora de saida do veiculo
+
                     DateTime meioDia = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 00, 00);
                     DateTime fimTarde = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 18, 00, 00);
 
-                    reg.Saida = DateTime.Now;
+
                     int turnoEntrada1 = DateTime.Compare((DateTime)reg.Entrada, meioDia);
                     int turnoEntrada2 = DateTime.Compare((DateTime)reg.Entrada, fimTarde);
-                    int turnoSaida1 = DateTime.Compare((DateTime)reg.Saida, meioDia);
-                    int turnoSaida2 = DateTime.Compare((DateTime)reg.Saida, fimTarde);
+                    int turnoSaida1 = DateTime.Compare((DateTime)Saida, meioDia);
+                    int turnoSaida2 = DateTime.Compare((DateTime)Saida, fimTarde);
 
                     if (turnoEntrada1 < 0 && turnoSaida1 <= 0) // entrou pela manha e saiu antes do meio dia
                     {
@@ -255,9 +262,10 @@ namespace Estacionamento.Controllers
                     }
 
 
-                    reg.ValorDevido = turnos * preco;
-                    db.Entry(reg).State = EntityState.Modified;
-                    db.SaveChanges();
+                    ValorDevido = turnos * preco;
+                    //db.Entry(reg).State = EntityState.Modified;
+                    //db.SaveChanges();
+
                 }
 
                 // TimeSpan ts = (TimeSpan) (reg.Saida - reg.Entrada);
@@ -268,27 +276,26 @@ namespace Estacionamento.Controllers
                 //  var segTs = ts.Seconds;
 
             }
-            parei as modificações aqui
-            return rediRedirectToAction("ConfirmaPagamento", reg.Id);
+
+            return RedirectToAction("ConfirmaPagamento", new { Id = Id, ValorDevido = ValorDevido, Saida = Saida });
+
         }
 
-        public ActionResult ConfirmaPagamento(Registro reg)
+        public ActionResult ConfirmaPagamento(int id, DateTime saida, float valorDevido)
         {
+            ModelState.Clear();
+            Registro registro = db.Registros.Find(id);
+            registro.ValorDevido = valorDevido;
+            registro.Saida = saida;
 
-            return View(reg);
+            return View(registro);
         }
         [HttpPost]
-        public ActionResult ConfirmaPagamento([Bind(Include = "Id,Saida,ValorDevido,ValorPago")]Registro reg)
+        public ActionResult ConfirmaPagamento(Registro registro)
         {
-            using (db)
-            {
-                Registro registro = db.Registros.Find(reg.Id);
-                registro.Saida = reg.Saida;
-                registro.ValorDevido = reg.ValorDevido;
-                registro.ValorPago = reg.ValorPago;
-                db.Entry(registro).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+
+            db.Entry(registro).State = EntityState.Modified;
+            db.SaveChanges();
 
             return RedirectToAction("index");
         }
