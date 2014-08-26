@@ -26,6 +26,7 @@ namespace Estacionamento.Controllers
         {
 
             DateTime dataBusca;
+           
 
             if (data == null)
             {
@@ -37,7 +38,7 @@ namespace Estacionamento.Controllers
             }
 
             //testear passando uma DATA COMO PARAMETRO
-            var registros = db.Registros.Include(r => r.Veiculo)
+              var registros = db.Registros.Include(r => r.Veiculo)
                 .Where(r => r.Entrada.Day == dataBusca.Day)
                 .Where(r => r.Entrada.Month == dataBusca.Month)
                 .Where(r => r.Entrada.Year == dataBusca.Year)
