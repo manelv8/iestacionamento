@@ -4,8 +4,21 @@
     ViewBag.Title = "Patio";
 }
 
-<h2>Veiculos no Patio</h2>
-<div>
+<div >
+    @{
+    if (TempData["erro"] != null)
+    {
+        <div class="alert-danger">
+            <p>@TempData["erro"]</p>
+        </div>
+    }
+}
+</div>
+
+@Html.Partial("~/Views/Registro/_Entrada.cshtml")
+@Html.Partial("~/Views/Registro/_Saida.cshtml")
+
+@*<div>
     @using (Html.BeginForm())
     {
         
@@ -16,7 +29,7 @@
 
     }
 
-</div>
+</div>*@
 
 
 <table class="table">

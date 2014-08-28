@@ -164,7 +164,6 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ContratoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MovimentacaoController.cs" />
     <Compile Include="Controllers\RegistroController.cs" />
     <Compile Include="Controllers\TurnoController.cs" />
     <Compile Include="Controllers\ValoresRotativoController.cs" />
@@ -246,7 +245,7 @@
     <Content Include="Views\Turno\Details.cshtml" />
     <Content Include="Views\Turno\Edit.cshtml" />
     <Content Include="Views\Turno\Index.cshtml" />
-    <Content Include="Views\Movimentacao\Entrada.cshtml" />
+    <Content Include="Views\Registro\_Entrada.cshtml" />
     <Content Include="Views\Veiculo\Create.cshtml" />
     <Content Include="Views\Veiculo\Delete.cshtml" />
     <Content Include="Views\Veiculo\Details.cshtml" />
@@ -263,8 +262,8 @@
     <Content Include="Views\ValoresRotativo\Edit.cshtml" />
     <Content Include="Views\ValoresRotativo\Index.cshtml" />
     <Content Include="Views\Registro\Patio.cshtml" />
-    <Content Include="Views\Movimentacao\Saida.cshtml" />
-    <Content Include="Views\Movimentacao\_formPlaca.cshtml" />
+    <Content Include="Views\Registro\_Saida.cshtml" />
+    <Content Include="Views\Registro\_formPlaca.cshtml" />
     <Content Include="Views\Registro\ConfirmaPagamento.cshtml" />
   </ItemGroup>
   <ItemGroup>

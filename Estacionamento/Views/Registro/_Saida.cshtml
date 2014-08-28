@@ -1,0 +1,28 @@
+﻿
+<div class="lado-a-lado">
+
+    
+    <fieldset class="field-border">
+        <legend class="field-border"> Saida  </legend>
+    
+        @using (Html.BeginForm("Saida","Registro"))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                
+                
+                @Html.Partial("~/Views/Registro/_formPlaca.cshtml")
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Registrar Saida" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    </fieldset>
+
+</div>

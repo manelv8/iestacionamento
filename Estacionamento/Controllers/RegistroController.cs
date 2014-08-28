@@ -21,7 +21,9 @@ namespace Estacionamento.Controllers
             return View(registros.ToList());
         }
 
-        [HttpPost]
+        
+
+
         public ActionResult Patio(string data = null)
         {
 
@@ -147,8 +149,13 @@ namespace Estacionamento.Controllers
         }
 
 
+        public ActionResult Entrada()
+        {
+            return View();
+        }
 
-        public ActionResult RegistraEntrada(string placa)
+        [HttpPost]
+        public ActionResult Entrada(string placa)
         {
             bool rotativo = true;
             placa = placa.ToUpper();
@@ -173,7 +180,7 @@ namespace Estacionamento.Controllers
                     if (registro != null)
                     {
                         TempData["erro"] = "veiculo ja no patio";
-                        return RedirectToAction("Entrada", "Movimentacao");
+                        return RedirectToAction("Patio", "Registro");
                     }
 
                     else if (v.ClienteId != null)
@@ -202,10 +209,20 @@ namespace Estacionamento.Controllers
                 db.SaveChanges();
 
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Patio");
         }
 
-        public ActionResult RegistraSaida(string placa)
+
+
+        public ActionResult Saida()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+      
+        public ActionResult Saida(string placa)
         {
             Registro reg;
             float ValorDevido;
@@ -219,7 +236,7 @@ namespace Estacionamento.Controllers
                 if (reg == null)
                 {
                     TempData["erro"] = "veiculo NAO está no patio";
-                    return RedirectToAction("Saida", "Movimentacao");
+                    return RedirectToAction("Patio", "Registro");
                 }
                 else
                 {
@@ -291,14 +308,14 @@ namespace Estacionamento.Controllers
 
             return View(registro);
         }
-        [HttpPost]
-        public ActionResult ConfirmaPagamento(Registro registro)
+       
+        public ActionResult EfetuaPagamento(Registro registro)
         {
 
             db.Entry(registro).State = EntityState.Modified;
             db.SaveChanges();
 
-            return RedirectToAction("index");
+            return RedirectToAction("Patio");
         }
 
 
